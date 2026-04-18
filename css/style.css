@@ -1,6 +1,10 @@
 @import url("reset.css");
 @import url("fonts.css");
 
+html {
+    scrollbar-gutter: stable;
+}
+
 * {
     box-sizing: border-box;
     font-family: "Craftwork Grotesk", sans-serif;
@@ -11,9 +15,13 @@ body {
     display: flex;
     flex-direction: column;
     /*align-items: center;*/
-    justify-content: center;
     background: #1D1D21;
     overflow-x: hidden;
+}
+
+img, a {
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
 }
 
 nav {
@@ -48,6 +56,24 @@ h1 {
 
 #first {
     gap: 50px;
+}
+
+#second {
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: visible;
+    padding: 100px 0;
+}
+
+#third {
+    justify-content: center;
+    padding: 50px 20px 80px;
+}
+
+#fourth {
+    justify-content: center;
+    padding: 55px 20px 55px;
 }
 
 .nav-sections {
@@ -179,4 +205,121 @@ h1 {
     border-radius: 100px;
     background-color: #FF55D4;
     z-index: 1;
+}
+
+#section2-bg {
+    position: absolute;
+    left: 32%;
+    top: 9%;
+    width: 75%;
+    z-index: 0;
+}
+
+.video-player {
+    display: flex;
+    width: 80%;
+    aspect-ratio: 16 / 9;
+    position: relative;
+    z-index: 999;
+}
+
+.video-player iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+    border-radius: 24px;
+}
+
+.section3-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 43px;
+    width: min(100%, 1000px);
+}
+
+.section3-heading {
+    position: relative;
+    display: flex;
+}
+
+h2 {
+    font-family: "Craftwork Grotesk", sans-serif;
+    font-size: 75px;
+    font-weight: 600;
+    color: white;
+}
+
+.section3-register-link {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-32%) translateX(105%);
+    font-family: "Craftwork Grotesk", sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+}
+
+.section3-downloads {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.section3-downloads-row {
+    display: flex;
+    gap: 10px;
+}
+
+.section3-download-button {
+    display: block;
+    border-radius: 10px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.section3-download-button:hover {
+    transform: translateY(-2px);
+}
+
+.section4-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3.57%;
+    width: min(100%, 1177px);
+}
+
+.section4-row {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section4-content img {
+    display: block;
+    height: auto;
+    min-width: 0;
+    flex-shrink: 1;
+}
+
+.section4-partner1 {
+    width: 40.61%;
+}
+
+.section4-partner2 {
+    width: 13.17%;
+}
+
+.section4-partner3 {
+    width: 29.82%;
+}
+
+.section4-partner4 {
+    width: 40.53%;
+}
+
+.section4-partner5 {
+    width: 37.81%;
 }
