@@ -1,5 +1,5 @@
-@import url("css/reset.css");
-@import url("css/fonts.css");
+@import url("reset.css");
+@import url("fonts.css");
 
 * {
     box-sizing: border-box;
@@ -10,9 +10,10 @@
 body {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /*align-items: center;*/
     justify-content: center;
     background: #1D1D21;
+    overflow-x: hidden;
 }
 
 nav {
@@ -20,6 +21,33 @@ nav {
     padding: 25px;
     justify-content: space-between;
     width: 100%;
+}
+
+main {
+}
+
+section {
+    display: flex;
+}
+
+h1 {
+    font-family: "Craftwork Grotesk", sans-serif;
+    font-size: 30px;
+    font-weight: 600;
+    color: white;
+    line-height: 150%;
+    width: 736px;
+    position: relative;
+    z-index: 2;
+}
+
+.last-line {
+    display: block;
+    line-height: 180%;
+}
+
+#first {
+    gap: 50px;
 }
 
 .nav-sections {
@@ -33,4 +61,122 @@ nav {
     font-size: 25px;
     font-weight: 400;
     color: white;
+}
+
+.section1-block1 {
+    display: flex;
+    position: relative;
+    width: 670px;
+    height: 627px;
+}
+
+#iphone {
+    position: absolute;
+    left: 26.3%;
+    top: 4.1%;
+    rotate: -11deg;
+    width: 276px;
+    height: 564px;
+    background-image: url("../assets/iPhone-bg.gif");
+    background-size: 90%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 24px;
+}
+
+.section1-card1 {
+    position: absolute;
+    left: 70%;
+    top: 1.28%;
+    transform-origin: center bottom;
+    animation: section1-card1-wobble 4.8s ease-in-out infinite;
+    will-change: transform;
+}
+
+.section1-card2 {
+    position: absolute;
+    left: 2.5%;
+    top: 50.4%;
+    transform-origin: center bottom;
+    animation: section1-card2-wobble 5.2s ease-in-out infinite;
+    will-change: transform;
+}
+
+.section1-card3 {
+    position: absolute;
+    left: 185.82%;
+    top: 64.11%;
+    transform-origin: center bottom;
+    animation: section1-card3-wobble 5s ease-in-out infinite;
+    will-change: transform;
+}
+
+@keyframes section1-card1-wobble {
+    0%,
+    100% {
+        transform: rotate(-11deg) translateY(0);
+    }
+    25% {
+        transform: rotate(-9.5deg) translateY(-1px);
+    }
+    50% {
+        transform: rotate(-12deg) translateY(0);
+    }
+    75% {
+        transform: rotate(-10deg) translateY(1px);
+    }
+}
+
+@keyframes section1-card2-wobble {
+    0%,
+    100% {
+        transform: rotate(3deg) translateY(0);
+    }
+    25% {
+        transform: rotate(4.2deg) translateY(-1px);
+    }
+    50% {
+        transform: rotate(2deg) translateY(0);
+    }
+    75% {
+        transform: rotate(4.5deg) translateY(1px);
+    }
+}
+
+@keyframes section1-card3-wobble {
+    0%,
+    100% {
+        transform: rotate(12deg) translateY(0);
+    }
+    25% {
+        transform: rotate(10.7deg) translateY(-1px);
+    }
+    50% {
+        transform: rotate(13deg) translateY(0);
+    }
+    75% {
+        transform: rotate(11.2deg) translateY(1px);
+    }
+}
+
+.section1-block2 {
+    display: flex;
+    padding-top: 85px;
+    z-index: 999;
+}
+
+.section1-text {
+    position: relative;
+    rotate: 3deg;
+}
+
+#pink-bg {
+    position: absolute;
+    left: -2%;
+    top: 41.75%;
+    width: 492px;
+    height: 54px;
+    border-radius: 100px;
+    background-color: #FF55D4;
+    z-index: 1;
 }

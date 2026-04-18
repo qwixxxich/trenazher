@@ -1,20 +1,20 @@
 @font-face {
     font-family: "Craftwork Grotesk";
-    src: url("../assets/fonts/CraftworkGrotesk-Regular.otf") format("truetype");
+    src: url("../assets/fonts/CraftworkGrotesk-Regular.otf") format("opentype");
     font-weight: 400;
     font-style: normal;
 }
 
 @font-face {
     font-family: "Craftwork Grotesk";
-    src: url("../assets/fonts/CraftworkGrotesk-SemiBold.otf") format("truetype");
+    src: url("../assets/fonts/CraftworkGrotesk-SemiBold.otf") format("opentype");
     font-weight: 600;
     font-style: normal;
 }
 
 @font-face {
     font-family: "Advaken Sans";
-    src: url("../assets/fonts/AdvakenSans.otf") format("truetype");
+    src: url("../assets/fonts/AdvakenSans.otf") format("opentype");
     font-weight: 400;
     font-style: normal;
 }
