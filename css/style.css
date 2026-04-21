@@ -489,10 +489,6 @@ h3 {
 }
 
 @media (max-width: 925px) {
-    /*h1 {*/
-    /*    font-size: 2.5vw;*/
-    /*}*/
-
     nav {
         display: none;
     }
@@ -506,7 +502,16 @@ h3 {
         width: 220vw;
     }
 
+    h1 {
+        font-size: 4vw;
+    }
+
+    .section1-block2 {
+        padding: 6% 6%;
+    }
+
     #first {
         flex-direction: column-reverse;
+        gap: 0;
     }
 }
