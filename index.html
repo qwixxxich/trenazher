@@ -26,7 +26,7 @@
             <img class="section1-card1" src="assets/section1-cards/card1_6.svg" alt="Карточка1">
             <img class="section1-card2" src="assets/section1-cards/card1_9.svg" alt="Карточка2">
             <img class="section1-card3" src="assets/section1-cards/card1_11.svg" alt="Карточка3">
-            <img src="assets/section1.svg" alt="Фон первого экрана">
+            <img class="section1-bg" src="assets/section1.svg" alt="Фон первого экрана">
         </div>
         <div class="section1-block2">
             <div class="section1-text">
@@ -37,11 +37,19 @@
         </div>
     </section>
     <section id="second">
-        <div class="video-player">
-            <iframe
-                    src="https://drive.google.com/file/d/1UKR4iSy7GcQ1A1VVY0xwpI-f9nV8zBmX/preview"
-                    allow="autoplay"
-                    allowfullscreen></iframe>
+        <div
+                class="video-player"
+                data-video-src="https://drive.google.com/file/d/1UKR4iSy7GcQ1A1VVY0xwpI-f9nV8zBmX/preview"
+                style="--video-poster-image: url('../assets/other/video.png');">
+            <button class="video-player-poster" type="button" aria-label="Воспроизвести видео">
+                <span class="video-player-play" aria-hidden="true"></span>
+            </button>
+            <noscript>
+                <iframe
+                        src="https://drive.google.com/file/d/1UKR4iSy7GcQ1A1VVY0xwpI-f9nV8zBmX/preview"
+                        allow="autoplay"
+                        allowfullscreen></iframe>
+            </noscript>
         </div>
         <img id="section2-bg" src="assets/section2.svg" alt="Фон второго экрана">
     </section>

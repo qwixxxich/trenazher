@@ -1,4 +1,31 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const buildAutoplayUrl = (source) => {
+        const url = new URL(source);
+        url.searchParams.set("autoplay", "1");
+        return url.toString();
+    };
+
+    const mountVideoPlayer = (player) => {
+        const posterButton = player.querySelector(".video-player-poster");
+        const source = player.dataset.videoSrc;
+
+        if (!posterButton || !source) {
+            return;
+        }
+
+        posterButton.addEventListener("click", () => {
+            const iframe = document.createElement("iframe");
+
+            iframe.src = buildAutoplayUrl(source);
+            iframe.allow = "autoplay";
+            iframe.allowFullscreen = true;
+            iframe.loading = "lazy";
+
+            posterButton.remove();
+            player.append(iframe);
+        }, { once: true });
+    };
+
     const setupToggleGroup = ({ toggleSelector, answerSelector, targetAttribute }) => {
         const toggles = Array.from(document.querySelectorAll(toggleSelector));
         const answers = Array.from(document.querySelectorAll(answerSelector));
@@ -73,4 +100,6 @@ document.addEventListener("DOMContentLoaded", () => {
             faqMore.hidden = false;
         });
     }
+
+    document.querySelectorAll(".video-player").forEach(mountVideoPlayer);
 });

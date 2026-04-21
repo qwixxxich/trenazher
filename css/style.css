@@ -44,11 +44,12 @@ section {
 
 h1 {
     font-family: "Craftwork Grotesk", sans-serif;
-    font-size: 30px;
+    font-size: 2.05vw;
     font-weight: 600;
     color: white;
     line-height: 150%;
-    width: 736px;
+    /*width: 736px;*/
+    width: 99%;
     position: relative;
     z-index: 2;
 }
@@ -109,11 +110,16 @@ h3 {
     color: white;
 }
 
+.section1-bg {
+    display: block;
+    width: 100vw;
+    height: auto;
+}
+
 .section1-block1 {
     display: flex;
     position: relative;
-    width: 670px;
-    height: 627px;
+    width: 45.6%;
 }
 
 #iphone {
@@ -121,13 +127,26 @@ h3 {
     left: 26.3%;
     top: 4.1%;
     rotate: -11deg;
-    width: 276px;
-    height: 564px;
+    width: 41.2%;
+    aspect-ratio: 276 / 564;
     background-image: url("../assets/iPhone-bg.gif");
     background-size: 90%;
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 24px;
+}
+
+#iphone img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.section1-card1,
+.section1-card2,
+.section1-card3 {
+    width: 18.8%;
+    height: auto;
 }
 
 .section1-card1 {
@@ -241,6 +260,10 @@ h3 {
     aspect-ratio: 16 / 9;
     position: relative;
     z-index: 999;
+    overflow: hidden;
+    border-radius: 24px;
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.28);
+    background: #111318;
 }
 
 .video-player iframe {
@@ -249,6 +272,60 @@ h3 {
     border: 0;
     display: block;
     border-radius: 24px;
+}
+
+.video-player-poster {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 24px;
+    border: 0;
+    border-radius: 24px;
+    background-image:
+        linear-gradient(180deg, rgba(8, 10, 14, 0.08) 0%, rgba(8, 10, 14, 0.74) 100%),
+        var(--video-poster-image);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.video-player-poster:hover,
+.video-player-poster:focus-visible {
+    transform: scale(1.01);
+    filter: brightness(1.06);
+}
+
+.video-player-poster:focus-visible {
+    outline: 3px solid #FF55D4;
+    outline-offset: -6px;
+}
+
+.video-player-play {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: rgba(33, 37, 54, 0.55);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+}
+
+.video-player-play::before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    margin-left: 6px;
+    border-top: 14px solid transparent;
+    border-bottom: 14px solid transparent;
+    border-left: 24px solid #FFFFFF;
 }
 
 .section3-content {
@@ -400,4 +477,14 @@ h3 {
 .faq-more-ans {
     padding: 15px 0;
     max-width: 100%;
+}
+
+@media (max-width: 925px) {
+}
+
+@media (max-width: 390px) {
+    #first {
+        flex-direction: column-reverse;
+        /*align-items: center;*/
+    }
 }
