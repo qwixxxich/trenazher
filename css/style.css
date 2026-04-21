@@ -19,6 +19,10 @@ body {
     overflow-x: hidden;
 }
 
+[hidden] {
+    display: none !important;
+}
+
 img, a {
     -webkit-user-drag: none;
     -webkit-touch-callout: none;
@@ -49,6 +53,21 @@ h1 {
     z-index: 2;
 }
 
+h2 {
+    font-family: "Craftwork Grotesk", sans-serif;
+    font-size: 60px;
+    font-weight: 600;
+    color: white;
+}
+
+h3 {
+    font-family: "Craftwork Grotesk", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: white;
+    line-height: 150%;
+}
+
 .last-line {
     display: block;
     line-height: 180%;
@@ -68,7 +87,7 @@ h1 {
 
 #third {
     justify-content: center;
-    padding: 50px 20px 80px;
+    padding: 25px 0;
 }
 
 #fourth {
@@ -78,13 +97,14 @@ h1 {
 
 .nav-sections {
     display: flex;
-    align-items: center;
-    gap: 50px;
+    padding-top: 10px;
+    /*align-items: center;*/
+    gap: 40px;
 }
 
 .nav-sections-text {
     font-family: "Craftwork Grotesk", sans-serif;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: 400;
     color: white;
 }
@@ -235,48 +255,57 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 43px;
-    width: min(100%, 1000px);
-}
-
-.section3-heading {
-    position: relative;
-    display: flex;
-}
-
-h2 {
-    font-family: "Craftwork Grotesk", sans-serif;
-    font-size: 75px;
-    font-weight: 600;
-    color: white;
-}
-
-.section3-register-link {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-32%) translateX(105%);
-    font-family: "Craftwork Grotesk", sans-serif;
-    font-size: 18px;
-    font-weight: 600;
-    color: white;
+    gap: 50px;
+    width: 50%;
 }
 
 .section3-downloads {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
+    width: 100%;
 }
 
 .section3-downloads-row {
     display: flex;
-    gap: 10px;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
 }
 
 .section3-download-button {
     display: block;
-    border-radius: 10px;
+    width: 100%;
+    min-width: 0;
+    aspect-ratio: 283 / 85;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.appstore {
+    background-image: url("../assets/store-bages/bage1-appstore.svg");
+}
+
+.gplay {
+    background-image: url("../assets/store-bages/bage2-gplay.svg");
+}
+
+.rustore {
+    background-image: url("../assets/store-bages/bage3-rustore.svg");
+}
+
+.appgallery {
+    background-image: url("../assets/store-bages/bage4-appgalery.svg");
+}
+
+.nashstore {
+    background-image: url("../assets/store-bages/bage5-nash.svg");
+}
+
+.apk {
+    background-image: url("../assets/store-bages/bage6-apk.svg");
 }
 
 .section3-download-button:hover {
@@ -284,42 +313,91 @@ h2 {
 }
 
 .section4-content {
+    justify-content: center;
+    display: flex;
+    gap: 25px;
+    width: 100%;
+
+    img {
+        min-width: 0;
+    }
+}
+
+.faq {
     display: flex;
     flex-direction: column;
-    gap: 3.57%;
-    width: min(100%, 1177px);
+    gap: 10px;
 }
 
-.section4-row {
+.fast-faq {
     display: flex;
-    width: 100%;
-    justify-content: space-between;
+    gap: 10px;
+}
+
+.fast-faq-ans {
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    gap: 10px;
 }
 
-.section4-content img {
-    display: block;
-    height: auto;
-    min-width: 0;
+.fast-faq-more {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.fast-faq .green-box {
+    flex-grow: 1;
     flex-shrink: 1;
+    cursor: pointer;
 }
 
-.section4-partner1 {
-    width: 40.61%;
+.faq-more-toggle {
+    cursor: pointer;
 }
 
-.section4-partner2 {
-    width: 13.17%;
+.faq-more-item {
+    cursor: pointer;
 }
 
-.section4-partner3 {
-    width: 29.82%;
+.other-faq {
+    display: flex;
+    justify-content: center;
 }
 
-.section4-partner4 {
-    width: 40.53%;
+.green-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: #EDFF40 2px solid;
+    border-radius: 22px;
+    padding: 5px 30px;
+    background-color: transparent;
+    text-align: center;
+    width: fit-content;
+    max-width: 100%;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.section4-partner5 {
-    width: 37.81%;
+.green-box.is-active {
+    background-color: #EDFF40;
+}
+
+.green-box.is-active h3 {
+    color: #1D1D21;
+}
+
+.faq-pdf-link {
+    color: #EDFF40;
+}
+
+.faq-accent {
+    color: #EDFF40;
+}
+
+.faq-ans,
+.faq-more-ans {
+    padding: 15px 0;
+    max-width: 100%;
 }

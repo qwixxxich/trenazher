@@ -8,7 +8,7 @@
 </head>
 <body>
 <nav>
-    <img src="assets/logo.png" alt="Логотип проекта">
+    <img src="assets/logo.svg" alt="Логотип проекта">
     <div class="nav-sections">
         <a href="" class="nav-sections-text">о проекте</a>
         <a href="" class="nav-sections-text">контакты</a>
@@ -47,47 +47,92 @@
     </section>
     <section id="third">
         <div class="section3-content">
-            <div class="section3-heading">
-                <h2>Скачивай!</h2>
-                <a class="section3-register-link" href="#">Как зарегистрироваться?</a>
-            </div>
+            <h2>Скачивай!</h2>
             <div class="section3-downloads">
                 <div class="section3-downloads-row">
-                    <a class="section3-download-button" href="https://apps.apple.com/ru/app/%D1%82%D1%80%D0%B5%D0%BD%D0%B0%D0%B6%D0%B5%D1%80-%D0%BF%D0%BE-%D0%B8%D1%81%D1%82%D0%BE%D1%80%D0%B8%D0%B8/id6469094146" target="_blank" rel="noopener noreferrer" aria-label="Скачать в App Store">
-                        <img src="assets/store-bages/bage1-appstore.svg" alt="Скачать в App Store">
-                    </a>
-                    <a class="section3-download-button" href="https://play.google.com/store/apps/details?id=ru.starmedia.ege" target="_blank" rel="noopener noreferrer" aria-label="Скачать в Google Play">
-                        <img src="assets/store-bages/bage2-gplay.svg" alt="Скачать в Google Play">
-                    </a>
-                    <a class="section3-download-button" href="https://apps.rustore.ru/app/ru.starmedia.ege" target="_blank" rel="noopener noreferrer" aria-label="Скачать в RuStore">
-                        <img src="assets/store-bages/bage3-rustore.svg" alt="Скачать в RuStore">
-                    </a>
+                    <a class="section3-download-button appstore" href="https://apps.apple.com/ru/app/%D1%82%D1%80%D0%B5%D0%BD%D0%B0%D0%B6%D0%B5%D1%80-%D0%BF%D0%BE-%D0%B8%D1%81%D1%82%D0%BE%D1%80%D0%B8%D0%B8/id6469094146" target="_blank" rel="noopener noreferrer" aria-label="Скачать в App Store"></a>
+                    <a class="section3-download-button gplay" href="https://play.google.com/store/apps/details?id=ru.starmedia.ege" target="_blank" rel="noopener noreferrer" aria-label="Скачать в Google Play"></a>
+                    <a class="section3-download-button rustore" href="https://apps.rustore.ru/app/ru.starmedia.ege" target="_blank" rel="noopener noreferrer" aria-label="Скачать в RuStore"></a>
                 </div>
                 <div class="section3-downloads-row">
-                    <a class="section3-download-button" href="https://appgallery.cloud.huawei.com/ag/n/app/C109370607?locale=ru_RU&source=appshare&subsource=C109370607&shareTo=org.telegram.messenger&shareFrom=appmarket&shareIds=24f2711e2e164f1398138a9d8b7f3f30_org.telegram.messenger&callType=SHARE" target="_blank" rel="noopener noreferrer" aria-label="Скачать в AppGallery">
-                        <img src="assets/store-bages/bage4-appgalery.svg" alt="Скачать в AppGallery">
-                    </a>
-                    <a class="section3-download-button" href="https://store.nashstore.ru/store/65269fd90a39b23f2221f6af" target="_blank" rel="noopener noreferrer" aria-label="Скачать в NashStore">
-                        <img src="assets/store-bages/bage5-nash.svg" alt="Скачать в NashStore">
-                    </a>
-                    <a class="section3-download-button" href="#" aria-label="Скачать APK">
-                        <img src="assets/store-bages/bage6-apk.svg" alt="Скачать APK">
-                    </a>
+                    <a class="section3-download-button appgallery" href="https://appgallery.cloud.huawei.com/ag/n/app/C109370607?locale=ru_RU&source=appshare&subsource=C109370607&shareTo=org.telegram.messenger&shareFrom=appmarket&shareIds=24f2711e2e164f1398138a9d8b7f3f30_org.telegram.messenger&callType=SHARE" target="_blank" rel="noopener noreferrer" aria-label="Скачать в AppGallery"></a>
+                    <a class="section3-download-button nashstore" href="https://store.nashstore.ru/store/65269fd90a39b23f2221f6af" target="_blank" rel="noopener noreferrer" aria-label="Скачать в NashStore"></a>
+                    <a class="section3-download-button apk" href="#" aria-label="Скачать APK"></a>
+                </div>
+                <div class="faq">
+                    <div class="fast-faq-ans">
+                        <div class="fast-faq">
+                            <a href="#" class="green-box faq-toggle" data-faq-target="faq-registration" aria-expanded="false">
+                                <h3>Как зарегистрироваться в приложении?</h3>
+                            </a>
+                            <a href="#" class="green-box faq-toggle" data-faq-target="faq-apk" aria-expanded="false">
+                                <h3>Как установить .apk файл?</h3>
+                            </a>
+                        </div>
+                        <div class="faq-ans" id="faq-registration" hidden>
+                            <h3>
+                                Как зарегистрироваться в приложении, ВЫ можете посмотреть на страничке
+                                <a class="faq-pdf-link" href="assets/other/Инструкция_по_скачиванию_и_установке_мобильного_приложения1_13_03.pdf" target="_blank" rel="noopener noreferrer">ЗДЕСЬ</a>
+                            </h3>
+                        </div>
+                        <div class="faq-ans" id="faq-apk" hidden>
+                            <h3>
+                                1. Скачайте .apk файл на Android-устройство.<br>
+                                2. Откройте файл в папке «Загрузки» или через уведомление о завершении загрузки.<br>
+                                ! Если появится предупреждение, разрешите установку из неизвестного источника для браузера или файлового менеджера, через который вы открываете файл.<br>
+                                3. Вернитесь к .apk файлу и снова нажмите «Установить».<br>
+                                4. Дождитесь завершения установки и нажмите «Открыть».
+                            </h3>
+                        </div>
+                        <a href="#" class="green-box faq-more-toggle" data-faq-more-target="faq-more" aria-expanded="false">
+                            <h3>Другие вопросы FAQ</h3>
+                        </a>
+                        <div class="fast-faq-more" id="faq-more" hidden>
+                            <a href="#" class="green-box faq-more-item" data-faq-more-answer-target="faq-profile-name" aria-expanded="false">
+                                <h3>Почему при регистрации нежелательно ставить никнейм вместо настоящего имени?</h3>
+                            </a>
+                            <div class="fast-faq">
+                                <a href="#" class="green-box faq-more-item" data-faq-more-answer-target="faq-material-error" aria-expanded="false">
+                                    <h3>Ошибка в материалах</h3>
+                                </a>
+                                <a href="#" class="green-box faq-more-item" data-faq-more-answer-target="faq-other" aria-expanded="false">
+                                    <h3>Другое</h3>
+                                </a>
+                            </div>
+                            <div class="faq-more-ans" id="faq-profile-name" hidden>
+                                <h3>
+                                    Мы не рекомендуем использовать вымышленные имена в профиле. В ходе изучения материалов, а также прохождения тестирования, ты сможешь получить именную грамоту, данные которой будут автоматически переноситься из твоего профиля. Ты можешь скачать или отправить грамоту на почту, чтобы использовать ее в будущем, например, чтобы показать учителю или педагогу свое достижение.
+                                </h3>
+                            </div>
+                            <div class="faq-more-ans" id="faq-material-error" hidden>
+                                <h3>
+                                    Если ты обнаружил ошибку в нашем материале, пожалуйста, напиши нам в чат-поддержку в Telegram:
+                                    <a class="faq-pdf-link" href="https://t.me/Iriska_techbot" target="_blank" rel="noopener noreferrer">@Iriska_techbot</a>
+                                    или на почту:
+                                    <a class="faq-accent" href="mailto:info@ruhistory.study">info@ruhistory.study</a>, и мы обязательно ее исправим.
+                                </h3>
+                            </div>
+                            <div class="faq-more-ans" id="faq-other" hidden>
+                                <h3>
+                                    Если у тебя есть вопросы или не получается решить проблему, напиши нам в поддержку, и мы оперативно поможем тебе.<br>
+                                    Чат-поддержка в Telegram:
+                                    <a class="faq-pdf-link" href="https://t.me/Iriska_techbot" target="_blank" rel="noopener noreferrer">@Iriska_techbot</a><br>
+                                    Email: <a class="faq-accent" href="mailto:info@ruhistory.study">info@ruhistory.study</a>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
     <section id="fourth">
         <div class="section4-content">
-            <div class="section4-row">
-                <img class="section4-partner1" src="assets/partners/partner1.svg" alt="Российское военно-историческое общество">
-                <img class="section4-partner2" src="assets/partners/partner2.svg" alt="Радищевский музей">
-                <img class="section4-partner3" src="assets/partners/partner3.svg" alt="Смотрим">
-            </div>
-            <div class="section4-row">
-                <img class="section4-partner4" src="assets/partners/partner4.svg" alt="Большая российская энциклопедия">
-                <img class="section4-partner5" src="assets/partners/partner5.svg" alt="Московский метрополитен">
-            </div>
+            <img class="section4-partner1" src="assets/partners/partner1.svg" alt="Российское военно-историческое общество">
+            <img class="section4-partner2" src="assets/partners/partner2.svg" alt="Радищевский музей">
+            <img class="section4-partner3" src="assets/partners/partner3.svg" alt="Смотрим">
+            <img class="section4-partner4" src="assets/partners/partner4.svg" alt="Большая российская энциклопедия">
+            <img class="section4-partner5" src="assets/partners/partner5.svg" alt="Московский метрополитен">
         </div>
     </section>
 </main>
