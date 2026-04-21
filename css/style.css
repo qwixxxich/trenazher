@@ -70,8 +70,24 @@ h3 {
 }
 
 .last-line {
-    display: block;
-    line-height: 180%;
+    display: inline-block;
+    position: relative;
+    z-index: 0;
+    padding: 0 0.25em;
+    line-height: 1.8;
+}
+
+.last-line::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: -0.12em;
+    right: -0.12em;
+    top: 50%;
+    height: 1.6em;
+    transform: translateY(-50%);
+    border-radius: 999px;
+    background-color: #FF55D4;
 }
 
 #first {
@@ -233,17 +249,6 @@ h3 {
 .section1-text {
     position: relative;
     rotate: 3deg;
-}
-
-#pink-bg {
-    position: absolute;
-    left: -2%;
-    top: 41.75%;
-    width: 492px;
-    height: 54px;
-    border-radius: 100px;
-    background-color: #FF55D4;
-    z-index: 1;
 }
 
 #section2-bg {
