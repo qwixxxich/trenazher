@@ -1,10 +1,6 @@
 @import url("reset.css");
 @import url("fonts.css");
 
-html {
-    scrollbar-gutter: stable;
-}
-
 * {
     box-sizing: border-box;
     font-family: "Craftwork Grotesk", sans-serif;
@@ -512,6 +508,12 @@ h3 {
         font-size: 11px;
     }
 
+    main {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
     .green-box {
         border-radius: 15px;
     }
@@ -556,4 +558,5 @@ h3 {
         width: 90%;
         gap: 25px;
     }
+
 }
