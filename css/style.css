@@ -120,13 +120,12 @@ h3 {
 .nav-sections {
     display: flex;
     padding-top: 10px;
-    /*align-items: center;*/
-    gap: 40px;
+    gap: 2.5vw;
 }
 
 .nav-sections-text {
     font-family: "Craftwork Grotesk", sans-serif;
-    font-size: 20px;
+    font-size: 1.7vw;
     font-weight: 400;
     color: white;
 }
@@ -314,8 +313,8 @@ h3 {
     position: relative;
     display: grid;
     place-items: center;
-    width: 88px;
-    height: 88px;
+    width: 4vw;
+    height: 4vw;
     border-radius: 50%;
     background: rgba(33, 37, 54, 0.55);
     backdrop-filter: blur(16px);
@@ -327,10 +326,10 @@ h3 {
     display: block;
     width: 0;
     height: 0;
-    margin-left: 6px;
-    border-top: 14px solid transparent;
-    border-bottom: 14px solid transparent;
-    border-left: 24px solid #FFFFFF;
+    margin-left: 0.4vw;
+    border-top: 1vw solid transparent;
+    border-bottom: 1vw solid transparent;
+    border-left: 1.55vw solid #FFFFFF;
 }
 
 .section3-content {
@@ -485,10 +484,6 @@ h3 {
 }
 
 @media (max-width: 925px) {
-    nav {
-        display: none;
-    }
-
     h2 {
         font-size: 40px;
     }
@@ -514,6 +509,10 @@ h3 {
         gap: 15px;
     }
 
+    .nav-sections {
+        display: none;
+    }
+
     .green-box {
         border-radius: 15px;
     }
@@ -535,6 +534,10 @@ h3 {
 
     #second {
         padding: 50px 0;
+    }
+
+    #third {
+        padding-top: 0;
     }
 
     #fourth {
@@ -559,4 +562,17 @@ h3 {
         gap: 25px;
     }
 
+    nav {
+        img {
+            width: 17%;
+        }
+    }
+
+    .section3-downloads-row {
+        gap: 5px;
+    }
+
+    .section3-downloads {
+        gap: 5px;
+    }
 }
