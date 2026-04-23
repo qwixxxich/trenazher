@@ -587,6 +587,13 @@ h3 {
 
     .section4-content {
         width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        img {
+            max-height: 11vw;
+            width: auto;
+        }
     }
 
     .section3-downloads-row {
