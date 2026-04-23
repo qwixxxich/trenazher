@@ -1,0 +1,108 @@
+:root {
+    color-scheme: dark;
+    --bg: #1D1D21;
+    --panel: #25252B;
+    --text: #FFFFFF;
+    --accent: #EDFF40;
+    --muted: rgba(255, 255, 255, 0.72);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Craftwork Grotesk", sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.doc-page {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 20px;
+    min-height: 100vh;
+    padding: 24px;
+}
+
+.doc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.doc-title {
+    margin: 0;
+    font-size: clamp(22px, 2.2vw, 34px);
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.doc-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.doc-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 12px 18px;
+    border: 2px solid var(--accent);
+    border-radius: 999px;
+    color: var(--text);
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+}
+
+.doc-link:hover {
+    background: var(--accent);
+    color: var(--bg);
+}
+
+.doc-caption {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.doc-frame {
+    flex: 1;
+    min-height: 70vh;
+    border: 0;
+    border-radius: 20px;
+    background: #FFFFFF;
+}
+
+@media (max-width: 640px) {
+    .doc-page {
+        padding: 16px;
+    }
+
+    .doc-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .doc-actions {
+        width: 100%;
+    }
+
+    .doc-link {
+        width: 100%;
+    }
+}
