@@ -114,7 +114,7 @@ h3 {
 
 #fourth {
     justify-content: center;
-    padding: 55px 20px 55px;
+    padding: 55px 20px;
 }
 
 .nav-sections {
@@ -125,14 +125,16 @@ h3 {
 
 .nav-sections-text {
     font-family: "Craftwork Grotesk", sans-serif;
-    font-size: 1.7vw;
+    font-size: 1.5vw;
     font-weight: 400;
     color: white;
 }
 
 .section1-bg {
     display: block;
-    width: 100vw;
+    width: max(100vw, 1470px);
+    min-width: 100vw;
+    max-width: none;
     height: auto;
 }
 
@@ -140,6 +142,8 @@ h3 {
     display: flex;
     position: relative;
     width: 45.6%;
+    flex: 0 0 45.6%;
+    min-width: 0;
 }
 
 #iphone {
@@ -397,7 +401,7 @@ h3 {
     justify-content: center;
     display: flex;
     gap: 25px;
-    width: 100%;
+    width: 75%;
 
     img {
         min-width: 0;
@@ -487,6 +491,18 @@ h3 {
     h2 {
         font-size: 40px;
     }
+
+    h3 {
+        font-size: 15px;
+    }
+
+    .section3-content {
+        width: 75%;
+    }
+
+    .section4-content {
+        width: 90%;
+    }
 }
 
 @media (max-width: 440px) {
@@ -509,6 +525,12 @@ h3 {
         gap: 15px;
     }
 
+    nav {
+        img {
+            width: 17%;
+        }
+    }
+
     .nav-sections {
         display: none;
     }
@@ -517,7 +539,8 @@ h3 {
         border-radius: 15px;
     }
     .section1-block1 {
-        width:100%;
+        display: block;
+        width: 100%;
     }
     .section1-bg {
         width: 220vw;
@@ -562,10 +585,8 @@ h3 {
         gap: 25px;
     }
 
-    nav {
-        img {
-            width: 17%;
-        }
+    .section4-content {
+        width: 100%;
     }
 
     .section3-downloads-row {
@@ -574,5 +595,11 @@ h3 {
 
     .section3-downloads {
         gap: 5px;
+    }
+}
+
+@media (max-width: 380px) {
+    h3 {
+        font-size: 10px;
     }
 }
