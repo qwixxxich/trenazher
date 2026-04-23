@@ -317,8 +317,8 @@ h3 {
     position: relative;
     display: grid;
     place-items: center;
-    width: 4vw;
-    height: 4vw;
+    width: 6vw;
+    height: 6vw;
     border-radius: 50%;
     background: rgba(33, 37, 54, 0.55);
     backdrop-filter: blur(16px);
