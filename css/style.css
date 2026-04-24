@@ -733,8 +733,8 @@ h3 {
     }
 
     nav.is-scrolled {
-        background: rgba(29, 29, 33, 0.94);
-        backdrop-filter: blur(14px);
+        background: rgba(29, 29, 33, 0.9);
+        backdrop-filter: blur(23px);
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
     }
 
