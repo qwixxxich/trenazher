@@ -1,11 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
     const nav = document.querySelector("nav");
+    const projectSectionHref = "#first";
+    const reducedMotionMediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const sectionLabels = [
-        { id: "first", label: "о проекте" },
-        { id: "second", label: "контакты" },
-        { id: "third", label: "партнеры" },
-        { id: "fourth", label: "спецпроекты" },
-        { id: "fifth", label: "сотрудничество" },
+        { id: "first", label: "о проекте", href: "#first" },
+        { id: "second", label: "о проекте", href: "#first" },
+        { id: "third", label: "скачать", href: "#third" },
+        { id: "fifth", label: "сотрудничество", href: "#fifth" },
+        { id: "fourth", label: "партнеры", href: "#fourth" },
     ];
 
     const buildAutoplayUrl = (source) => {
@@ -111,12 +113,108 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const navCurrentSection = document.querySelector(".nav-current-section");
+    const navLinks = Array.from(document.querySelectorAll(".nav-current-section, .nav-sections-text"));
     const trackedSections = sectionLabels
-        .map(({ id, label }) => {
+        .map(({ id, label, href }) => {
             const element = document.getElementById(id);
-            return element ? { element, id, label } : null;
+            return element ? { element, id, label, href } : null;
         })
         .filter(Boolean);
+    let activeScrollAnimationFrame = null;
+
+    const stopAnimatedScroll = () => {
+        if (!activeScrollAnimationFrame) {
+            return;
+        }
+
+        window.cancelAnimationFrame(activeScrollAnimationFrame);
+        activeScrollAnimationFrame = null;
+    };
+
+    const easeInOutQuint = (progress) => (
+        progress < 0.5
+            ? 16 * progress ** 5
+            : 1 - ((-2 * progress + 2) ** 5) / 2
+    );
+
+    const getMaxScrollY = () => Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+
+    const getNavScrollTarget = (section) => {
+        const sectionIndex = trackedSections.findIndex((item) => item.element === section);
+        const isEdgeSection = sectionIndex === 0 || sectionIndex === trackedSections.length - 1;
+        const rect = section.getBoundingClientRect();
+        const absoluteTop = window.scrollY + rect.top;
+        const canCenterSection = !isEdgeSection && rect.height < window.innerHeight;
+
+        if (!canCenterSection) {
+            return Math.min(getMaxScrollY(), Math.max(0, absoluteTop));
+        }
+
+        const centeredOffset = (window.innerHeight - rect.height) / 2;
+        return Math.min(getMaxScrollY(), Math.max(0, absoluteTop - centeredOffset));
+    };
+
+    const animateWindowScrollTo = (targetY) => {
+        const startY = window.scrollY;
+        const distance = targetY - startY;
+
+        stopAnimatedScroll();
+
+        if (Math.abs(distance) < 1) {
+            window.scrollTo(0, targetY);
+            return;
+        }
+
+        if (reducedMotionMediaQuery.matches) {
+            window.scrollTo(0, targetY);
+            return;
+        }
+
+        const duration = Math.min(1850, Math.max(950, Math.abs(distance) * 0.85));
+        const startTime = performance.now();
+
+        const tick = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easedProgress = easeInOutQuint(progress);
+
+            window.scrollTo(0, startY + distance * easedProgress);
+
+            if (progress < 1) {
+                activeScrollAnimationFrame = window.requestAnimationFrame(tick);
+                return;
+            }
+
+            activeScrollAnimationFrame = null;
+        };
+
+        activeScrollAnimationFrame = window.requestAnimationFrame(tick);
+    };
+
+    navLinks.forEach((link) => {
+        link.addEventListener("click", (event) => {
+            const targetSelector = link.getAttribute("href");
+
+            if (targetSelector === projectSectionHref) {
+                event.preventDefault();
+                stopAnimatedScroll();
+                return;
+            }
+
+            if (!targetSelector || !targetSelector.startsWith("#")) {
+                return;
+            }
+
+            const targetSection = document.querySelector(targetSelector);
+
+            if (!targetSection) {
+                return;
+            }
+
+            event.preventDefault();
+            animateWindowScrollTo(getNavScrollTarget(targetSection));
+        });
+    });
 
     const getActiveSection = () => {
         if (!trackedSections.length) {
@@ -158,7 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         document.querySelectorAll(".nav-sections-text").forEach((link) => {
-            const isActive = link.getAttribute("href") === `#${activeSection.id}`;
+            const isActive = link.getAttribute("href") === activeSection.href;
             link.classList.toggle("is-active", isActive);
 
             if (isActive) {
@@ -171,7 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (navCurrentSection) {
             navCurrentSection.textContent = activeSection.label;
-            navCurrentSection.setAttribute("href", `#${activeSection.id}`);
+            navCurrentSection.setAttribute("href", activeSection.href);
         }
     };
 
@@ -188,6 +286,8 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("scroll", syncNavScrollState, { passive: true });
     window.addEventListener("scroll", syncNavigationState, { passive: true });
     window.addEventListener("resize", syncNavigationState);
+    window.addEventListener("wheel", stopAnimatedScroll, { passive: true });
+    window.addEventListener("touchstart", stopAnimatedScroll, { passive: true });
 
     document.querySelectorAll(".video-player").forEach(mountVideoPlayer);
 });

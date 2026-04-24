@@ -1,6 +1,12 @@
 @import url("reset.css");
 @import url("fonts.css");
 
+html {
+    scrollbar-width: thin;
+    scrollbar-color: #EDFF40 rgba(255, 255, 255, 0.08);
+    scrollbar-gutter: stable;
+}
+
 * {
     box-sizing: border-box;
     font-family: "Craftwork Grotesk", sans-serif;
@@ -13,6 +19,29 @@ body {
     /*align-items: center;*/
     background: #1D1D21;
     overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+    width: 14px;
+}
+
+body::-webkit-scrollbar-track {
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+body::-webkit-scrollbar-thumb {
+    border: 3px solid #1D1D21;
+    border-radius: 999px;
+    background:
+        linear-gradient(180deg, #EDFF40 0%, #B7FF32 100%);
+    box-shadow: 0 8px 18px rgba(237, 255, 64, 0.22);
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background:
+        linear-gradient(180deg, #F6FF89 0%, #CFFF52 100%);
 }
 
 [hidden] {
@@ -557,18 +586,21 @@ h3 {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 100%;
 }
 
 .fast-faq {
     display: flex;
     gap: 10px;
+    width: 100%;
 }
 
 .fast-faq-ans {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     gap: 10px;
+    width: 100%;
 }
 
 .fast-faq-more {
@@ -579,21 +611,32 @@ h3 {
 }
 
 .fast-faq .green-box {
-    flex-grow: 1;
-    flex-shrink: 1;
+    flex: 1 1 0;
+    min-width: 0;
     cursor: pointer;
+}
+
+.faq-toggle {
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .faq-more-toggle {
     cursor: pointer;
-    width: 100%;
+    align-self: center;
+    width: fit-content;
+    max-width: 100%;
     box-sizing: border-box;
 }
 
 .faq-more-item {
     cursor: pointer;
-    width: 100%;
     box-sizing: border-box;
+}
+
+.fast-faq-more > .faq-more-item {
+    width: 100%;
 }
 
 .other-faq {
@@ -754,6 +797,12 @@ h3 {
         transition: opacity 0.2s ease;
     }
 
+    .nav-current-section,
+    .nav-sections-text {
+        pointer-events: none;
+        cursor: default;
+    }
+
     .nav-sections-text.is-active {
         opacity: 1;
     }
@@ -837,6 +886,10 @@ h3 {
 
     .section3-downloads {
         gap: 5px;
+    }
+
+    .faq {
+        margin-top: 20px;
     }
 
     .section5-content {
