@@ -21,6 +21,10 @@ body {
     overflow-x: hidden;
 }
 
+html {
+    background: #1D1D21;
+}
+
 body::-webkit-scrollbar {
     width: 14px;
 }
@@ -731,7 +735,9 @@ h3 {
 
 @media (max-width: 440px) {
     body {
-        --mobile-safe-top: env(safe-area-inset-top, 0px);
+        --mobile-safe-top: 0px;
+        --mobile-safe-top: constant(safe-area-inset-top);
+        --mobile-safe-top: env(safe-area-inset-top);
         --mobile-nav-height: calc(88px + var(--mobile-safe-top));
     }
 

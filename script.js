@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const nav = document.querySelector("nav");
     const projectSectionHref = "#first";
     const reducedMotionMediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const navSectionLinks = Array.from(document.querySelectorAll(".nav-sections-text"));
     const sectionLabels = [
         { id: "first", label: "о проекте", href: "#first" },
         { id: "second", label: "о проекте", href: "#first" },
@@ -27,13 +28,18 @@ document.addEventListener("DOMContentLoaded", () => {
         posterButton.addEventListener("click", () => {
             const iframe = document.createElement("iframe");
 
-            iframe.src = buildAutoplayUrl(source);
-            iframe.allow = "autoplay";
+            iframe.allow = "autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;";
             iframe.allowFullscreen = true;
             iframe.loading = "lazy";
+            iframe.referrerPolicy = "strict-origin-when-cross-origin";
 
             posterButton.remove();
-            player.append(iframe);
+
+            // Let the poster removal paint before the heavy iframe starts loading.
+            window.requestAnimationFrame(() => {
+                iframe.src = buildAutoplayUrl(source);
+                player.append(iframe);
+            });
         }, { once: true });
     };
 
@@ -121,6 +127,33 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .filter(Boolean);
     let activeScrollAnimationFrame = null;
+    let manualScrollAnimationFrame = null;
+    let manualScrollTargetY = window.scrollY;
+    let manualScrollCurrentY = window.scrollY;
+    let manualScrollLastTimestamp = 0;
+    let scheduledScrollStateFrame = null;
+    const manualScrollAccelerationFactor = 0.7;
+
+    const clampScrollY = (value) => Math.min(getMaxScrollY(), Math.max(0, value));
+
+    const syncManualScrollState = () => {
+        const currentScrollY = clampScrollY(window.scrollY);
+
+        manualScrollTargetY = currentScrollY;
+        manualScrollCurrentY = currentScrollY;
+    };
+
+    const stopManualScroll = () => {
+        if (!manualScrollAnimationFrame) {
+            syncManualScrollState();
+            return;
+        }
+
+        window.cancelAnimationFrame(manualScrollAnimationFrame);
+        manualScrollAnimationFrame = null;
+        manualScrollLastTimestamp = 0;
+        syncManualScrollState();
+    };
 
     const stopAnimatedScroll = () => {
         if (!activeScrollAnimationFrame) {
@@ -138,6 +171,104 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     const getMaxScrollY = () => Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+
+    const getNormalizedWheelDelta = (event) => {
+        if (event.deltaMode === WheelEvent.DOM_DELTA_LINE) {
+            return event.deltaY * 24;
+        }
+
+        if (event.deltaMode === WheelEvent.DOM_DELTA_PAGE) {
+            return event.deltaY * window.innerHeight * 0.9;
+        }
+
+        return event.deltaY;
+    };
+
+    const hasScrollableAncestor = (startNode) => {
+        if (!(startNode instanceof Element)) {
+            return false;
+        }
+
+        let currentNode = startNode;
+
+        while (currentNode && currentNode !== document.body) {
+            if (currentNode instanceof HTMLIFrameElement) {
+                return true;
+            }
+
+            const { overflowY } = window.getComputedStyle(currentNode);
+            const canScrollVertically = /(auto|scroll|overlay)/.test(overflowY);
+
+            if (canScrollVertically && currentNode.scrollHeight > currentNode.clientHeight + 1) {
+                return true;
+            }
+
+            currentNode = currentNode.parentElement;
+        }
+
+        return false;
+    };
+
+    const shouldHandleCustomWheel = (event) => {
+        if (reducedMotionMediaQuery.matches || event.ctrlKey) {
+            return false;
+        }
+
+        return !hasScrollableAncestor(event.target);
+    };
+
+    const animateManualScroll = (timestamp) => {
+        if (!manualScrollLastTimestamp) {
+            manualScrollLastTimestamp = timestamp;
+        }
+
+        const deltaTime = timestamp - manualScrollLastTimestamp;
+        const interpolationFactor = 1 - Math.exp(-deltaTime / 60);
+
+        manualScrollCurrentY += (manualScrollTargetY - manualScrollCurrentY) * interpolationFactor;
+        manualScrollCurrentY = clampScrollY(manualScrollCurrentY);
+        window.scrollTo(0, manualScrollCurrentY);
+
+        if (Math.abs(manualScrollTargetY - manualScrollCurrentY) < 0.5) {
+            window.scrollTo(0, manualScrollTargetY);
+            manualScrollAnimationFrame = null;
+            manualScrollLastTimestamp = 0;
+            syncManualScrollState();
+            return;
+        }
+
+        manualScrollLastTimestamp = timestamp;
+        manualScrollAnimationFrame = window.requestAnimationFrame(animateManualScroll);
+    };
+
+    const queueManualScroll = (deltaY) => {
+        manualScrollTargetY = clampScrollY(manualScrollTargetY + deltaY);
+
+        if (manualScrollAnimationFrame) {
+            return;
+        }
+
+        manualScrollCurrentY = window.scrollY;
+        manualScrollLastTimestamp = 0;
+        manualScrollAnimationFrame = window.requestAnimationFrame(animateManualScroll);
+    };
+
+    const handleWheelScroll = (event) => {
+        stopAnimatedScroll();
+
+        if (!shouldHandleCustomWheel(event)) {
+            stopManualScroll();
+            return;
+        }
+
+        event.preventDefault();
+
+        if (!manualScrollAnimationFrame) {
+            syncManualScrollState();
+        }
+
+        queueManualScroll(getNormalizedWheelDelta(event) * manualScrollAccelerationFactor);
+    };
 
     const getNavScrollTarget = (section) => {
         const sectionIndex = trackedSections.findIndex((item) => item.element === section);
@@ -159,14 +290,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const distance = targetY - startY;
 
         stopAnimatedScroll();
+        stopManualScroll();
 
         if (Math.abs(distance) < 1) {
             window.scrollTo(0, targetY);
+            syncManualScrollState();
             return;
         }
 
         if (reducedMotionMediaQuery.matches) {
             window.scrollTo(0, targetY);
+            syncManualScrollState();
             return;
         }
 
@@ -186,6 +320,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             activeScrollAnimationFrame = null;
+            syncManualScrollState();
         };
 
         activeScrollAnimationFrame = window.requestAnimationFrame(tick);
@@ -219,6 +354,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const getActiveSection = () => {
         if (!trackedSections.length) {
             return null;
+        }
+
+        const maxScrollY = getMaxScrollY();
+
+        if (window.scrollY >= maxScrollY - 4) {
+            return trackedSections[trackedSections.length - 1];
         }
 
         const viewportHeight = window.innerHeight;
@@ -255,7 +396,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        document.querySelectorAll(".nav-sections-text").forEach((link) => {
+        navSectionLinks.forEach((link) => {
             const isActive = link.getAttribute("href") === activeSection.href;
             link.classList.toggle("is-active", isActive);
 
@@ -281,13 +422,38 @@ document.addEventListener("DOMContentLoaded", () => {
         nav.classList.toggle("is-scrolled", window.scrollY > 0);
     };
 
+    const scheduleScrollStateSync = () => {
+        if (scheduledScrollStateFrame) {
+            return;
+        }
+
+        scheduledScrollStateFrame = window.requestAnimationFrame(() => {
+            scheduledScrollStateFrame = null;
+            syncNavScrollState();
+            syncNavigationState();
+        });
+    };
+
     syncNavScrollState();
     syncNavigationState();
-    window.addEventListener("scroll", syncNavScrollState, { passive: true });
-    window.addEventListener("scroll", syncNavigationState, { passive: true });
-    window.addEventListener("resize", syncNavigationState);
-    window.addEventListener("wheel", stopAnimatedScroll, { passive: true });
-    window.addEventListener("touchstart", stopAnimatedScroll, { passive: true });
+    window.addEventListener("scroll", scheduleScrollStateSync, { passive: true });
+    window.addEventListener("resize", () => {
+        stopAnimatedScroll();
+        stopManualScroll();
+        syncNavigationState();
+    });
+    window.addEventListener("wheel", handleWheelScroll, { passive: false });
+    window.addEventListener("touchstart", () => {
+        stopAnimatedScroll();
+        stopManualScroll();
+    }, { passive: true });
+
+    if (typeof reducedMotionMediaQuery.addEventListener === "function") {
+        reducedMotionMediaQuery.addEventListener("change", () => {
+            stopAnimatedScroll();
+            stopManualScroll();
+        });
+    }
 
     document.querySelectorAll(".video-player").forEach(mountVideoPlayer);
 });
