@@ -1,4 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const nav = document.querySelector("nav");
+    const sectionLabels = [
+        { id: "first", label: "о проекте" },
+        { id: "second", label: "контакты" },
+        { id: "third", label: "партнеры" },
+        { id: "fourth", label: "спецпроекты" },
+        { id: "fifth", label: "сотрудничество" },
+    ];
+
     const buildAutoplayUrl = (source) => {
         const url = new URL(source);
         url.searchParams.set("autoplay", "1");
@@ -100,6 +109,85 @@ document.addEventListener("DOMContentLoaded", () => {
             faqMore.hidden = false;
         });
     }
+
+    const navCurrentSection = document.querySelector(".nav-current-section");
+    const trackedSections = sectionLabels
+        .map(({ id, label }) => {
+            const element = document.getElementById(id);
+            return element ? { element, id, label } : null;
+        })
+        .filter(Boolean);
+
+    const getActiveSection = () => {
+        if (!trackedSections.length) {
+            return null;
+        }
+
+        const viewportHeight = window.innerHeight;
+        const focusTop = viewportHeight * 0.2;
+        const focusBottom = viewportHeight * 0.8;
+        const focusCenter = (focusTop + focusBottom) / 2;
+
+        return trackedSections.reduce((bestMatch, section) => {
+            const rect = section.element.getBoundingClientRect();
+            const overlap = Math.max(0, Math.min(rect.bottom, focusBottom) - Math.max(rect.top, focusTop));
+            const rectCenter = rect.top + (rect.height / 2);
+            const distanceToFocus = Math.abs(rectCenter - focusCenter);
+
+            if (!bestMatch) {
+                return { section, overlap, distanceToFocus };
+            }
+
+            if (overlap > bestMatch.overlap) {
+                return { section, overlap, distanceToFocus };
+            }
+
+            if (overlap === bestMatch.overlap && distanceToFocus < bestMatch.distanceToFocus) {
+                return { section, overlap, distanceToFocus };
+            }
+
+            return bestMatch;
+        }, null)?.section ?? null;
+    };
+
+    const syncNavigationState = () => {
+        const activeSection = getActiveSection();
+
+        if (!activeSection) {
+            return;
+        }
+
+        document.querySelectorAll(".nav-sections-text").forEach((link) => {
+            const isActive = link.getAttribute("href") === `#${activeSection.id}`;
+            link.classList.toggle("is-active", isActive);
+
+            if (isActive) {
+                link.setAttribute("aria-current", "location");
+                return;
+            }
+
+            link.removeAttribute("aria-current");
+        });
+
+        if (navCurrentSection) {
+            navCurrentSection.textContent = activeSection.label;
+            navCurrentSection.setAttribute("href", `#${activeSection.id}`);
+        }
+    };
+
+    const syncNavScrollState = () => {
+        if (!nav) {
+            return;
+        }
+
+        nav.classList.toggle("is-scrolled", window.scrollY > 0);
+    };
+
+    syncNavScrollState();
+    syncNavigationState();
+    window.addEventListener("scroll", syncNavScrollState, { passive: true });
+    window.addEventListener("scroll", syncNavigationState, { passive: true });
+    window.addEventListener("resize", syncNavigationState);
 
     document.querySelectorAll(".video-player").forEach(mountVideoPlayer);
 });
