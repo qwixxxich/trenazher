@@ -721,11 +721,12 @@ h3 {
         padding: 18px 20px 16px;
         min-height: var(--mobile-nav-height);
         background: #1D1D21;
+        -webkit-backdrop-filter: none;
         backdrop-filter: none;
         border-bottom-left-radius: 22px;
         border-bottom-right-radius: 22px;
         box-shadow: none;
-        transition: background-color 0.2s ease, backdrop-filter 0.2s ease, box-shadow 0.2s ease;
+        transition: background-color 0.2s ease, -webkit-backdrop-filter 0.2s ease, backdrop-filter 0.2s ease, box-shadow 0.2s ease;
 
         img {
             width: 17%;
@@ -733,8 +734,9 @@ h3 {
     }
 
     nav.is-scrolled {
-        background: rgba(29, 29, 33, 0.9);
-        backdrop-filter: blur(23px);
+        background: rgba(29, 29, 33, 0.94);
+        -webkit-backdrop-filter: blur(14px);
+        backdrop-filter: blur(14px);
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
     }
 
