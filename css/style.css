@@ -758,16 +758,15 @@ h3 {
         display: flex;
         flex-direction: column;
         gap: 15px;
-        padding-top: calc(var(--mobile-nav-height) + 12px);
+        padding-top: 12px;
     }
 
     nav {
-        position: fixed;
+        position: sticky;
         top: 0;
-        left: 0;
-        right: 0;
         z-index: 2000;
         align-items: center;
+        width: 100%;
         padding: calc(18px + var(--mobile-safe-top)) 20px 16px;
         min-height: var(--mobile-nav-height);
         background: #1D1D21;
@@ -775,9 +774,7 @@ h3 {
         backdrop-filter: none;
         border-bottom-left-radius: 22px;
         border-bottom-right-radius: 22px;
-        box-shadow:
-            0 14px 36px rgba(0, 0, 0, 0.24),
-            0 2px 0 rgba(255, 255, 255, 0.03) inset;
+        box-shadow: none;
         transition: background-color 0.2s ease, -webkit-backdrop-filter 0.2s ease, backdrop-filter 0.2s ease, box-shadow 0.2s ease;
 
         img {
