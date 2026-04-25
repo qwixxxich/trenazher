@@ -775,7 +775,9 @@ h3 {
         backdrop-filter: none;
         border-bottom-left-radius: 22px;
         border-bottom-right-radius: 22px;
-        box-shadow: none;
+        box-shadow:
+            0 14px 36px rgba(0, 0, 0, 0.24),
+            0 2px 0 rgba(255, 255, 255, 0.03) inset;
         transition: background-color 0.2s ease, -webkit-backdrop-filter 0.2s ease, backdrop-filter 0.2s ease, box-shadow 0.2s ease;
 
         img {
@@ -784,10 +786,12 @@ h3 {
     }
 
     nav.is-scrolled {
-        background: rgba(29, 29, 33, 0.8);
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(14px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+        background: #1D1D21;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        box-shadow:
+            0 14px 36px rgba(0, 0, 0, 0.24),
+            0 2px 0 rgba(255, 255, 255, 0.03) inset;
     }
 
     .nav-current-section {
