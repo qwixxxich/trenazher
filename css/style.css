@@ -931,8 +931,8 @@ h3 {
     }
 
     .floating-download-button {
-        --floating-download-trigger-y: 80;
-        top: 80vh;
+        --floating-download-trigger-y: 85;
+        top: 85vh;
         width: 46%;
         min-width: 0;
         max-width: none;
