@@ -119,7 +119,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const navCurrentSection = document.querySelector(".nav-current-section");
-    const navLinks = Array.from(document.querySelectorAll(".nav-current-section, .nav-sections-text"));
+    const floatingDownloadButton = document.querySelector(".floating-download-button");
+    const navLinks = Array.from(document.querySelectorAll(".nav-current-section, .nav-sections-text, .floating-download-button"));
     const trackedSections = sectionLabels
         .map(({ id, label, href }) => {
             const element = document.getElementById(id);
@@ -422,6 +423,24 @@ document.addEventListener("DOMContentLoaded", () => {
         nav.classList.toggle("is-scrolled", window.scrollY > 0);
     };
 
+    const syncFloatingDownloadButtonState = () => {
+        if (!floatingDownloadButton) {
+            return;
+        }
+
+        const downloadSection = document.getElementById("third");
+
+        if (!downloadSection) {
+            floatingDownloadButton.classList.add("is-hidden");
+            return;
+        }
+
+        const triggerY = window.innerHeight * 0.9;
+        const sectionTop = downloadSection.getBoundingClientRect().top;
+
+        floatingDownloadButton.classList.toggle("is-hidden", sectionTop <= triggerY);
+    };
+
     const scheduleScrollStateSync = () => {
         if (scheduledScrollStateFrame) {
             return;
@@ -431,16 +450,19 @@ document.addEventListener("DOMContentLoaded", () => {
             scheduledScrollStateFrame = null;
             syncNavScrollState();
             syncNavigationState();
+            syncFloatingDownloadButtonState();
         });
     };
 
     syncNavScrollState();
     syncNavigationState();
+    syncFloatingDownloadButtonState();
     window.addEventListener("scroll", scheduleScrollStateSync, { passive: true });
     window.addEventListener("resize", () => {
         stopAnimatedScroll();
         stopManualScroll();
         syncNavigationState();
+        syncFloatingDownloadButtonState();
     });
     window.addEventListener("wheel", handleWheelScroll, { passive: false });
     window.addEventListener("touchstart", () => {
