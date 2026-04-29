@@ -436,7 +436,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const triggerRatio = Number.parseFloat(window.getComputedStyle(floatingDownloadButton).getPropertyValue("--floating-download-trigger-y")) || 90;
-        const triggerY = window.innerHeight * (triggerRatio / 100);
+        const viewportHeight = window.visualViewport?.height ?? window.innerHeight;
+        const triggerY = viewportHeight * (triggerRatio / 100);
         const sectionTop = downloadSection.getBoundingClientRect().top;
 
         floatingDownloadButton.classList.toggle("is-hidden", sectionTop <= triggerY);
@@ -465,6 +466,7 @@ document.addEventListener("DOMContentLoaded", () => {
         syncNavigationState();
         syncFloatingDownloadButtonState();
     });
+    window.visualViewport?.addEventListener("resize", syncFloatingDownloadButtonState);
     window.addEventListener("wheel", handleWheelScroll, { passive: false });
     window.addEventListener("touchstart", () => {
         stopAnimatedScroll();
