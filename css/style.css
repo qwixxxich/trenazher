@@ -75,6 +75,7 @@ nav {
 }
 
 .floating-download-button {
+    --floating-download-trigger-y: 90;
     position: fixed;
     left: 50%;
     top: 90vh;
@@ -930,6 +931,8 @@ h3 {
     }
 
     .floating-download-button {
+        --floating-download-trigger-y: 80;
+        top: 80vh;
         width: 46%;
         min-width: 0;
         max-width: none;

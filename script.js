@@ -435,7 +435,8 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const triggerY = window.innerHeight * 0.9;
+        const triggerRatio = Number.parseFloat(window.getComputedStyle(floatingDownloadButton).getPropertyValue("--floating-download-trigger-y")) || 90;
+        const triggerY = window.innerHeight * (triggerRatio / 100);
         const sectionTop = downloadSection.getBoundingClientRect().top;
 
         floatingDownloadButton.classList.toggle("is-hidden", sectionTop <= triggerY);
