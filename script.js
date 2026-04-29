@@ -133,6 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let manualScrollCurrentY = window.scrollY;
     let manualScrollLastTimestamp = 0;
     let scheduledScrollStateFrame = null;
+    let activeScrollAnimationLocked = false;
     const manualScrollAccelerationFactor = 0.7;
 
     const clampScrollY = (value) => Math.min(getMaxScrollY(), Math.max(0, value));
@@ -156,13 +157,19 @@ document.addEventListener("DOMContentLoaded", () => {
         syncManualScrollState();
     };
 
-    const stopAnimatedScroll = () => {
+    const stopAnimatedScroll = (force = false) => {
         if (!activeScrollAnimationFrame) {
+            activeScrollAnimationLocked = false;
+            return;
+        }
+
+        if (activeScrollAnimationLocked && !force) {
             return;
         }
 
         window.cancelAnimationFrame(activeScrollAnimationFrame);
         activeScrollAnimationFrame = null;
+        activeScrollAnimationLocked = false;
     };
 
     const easeInOutQuint = (progress) => (
@@ -293,27 +300,30 @@ document.addEventListener("DOMContentLoaded", () => {
         return Math.min(getMaxScrollY(), Math.max(0, absoluteTop));
     };
 
-    const animateWindowScrollTo = (targetY) => {
+    const animateWindowScrollTo = (targetY, { lockUntilComplete = false } = {}) => {
         const startY = window.scrollY;
         const distance = targetY - startY;
 
-        stopAnimatedScroll();
+        stopAnimatedScroll(true);
         stopManualScroll();
 
         if (Math.abs(distance) < 1) {
             window.scrollTo(0, targetY);
+            activeScrollAnimationLocked = false;
             syncManualScrollState();
             return;
         }
 
         if (reducedMotionMediaQuery.matches) {
             window.scrollTo(0, targetY);
+            activeScrollAnimationLocked = false;
             syncManualScrollState();
             return;
         }
 
         const duration = Math.min(1850, Math.max(950, Math.abs(distance) * 0.85));
         const startTime = performance.now();
+        activeScrollAnimationLocked = lockUntilComplete;
 
         const tick = (currentTime) => {
             const elapsed = currentTime - startTime;
@@ -328,6 +338,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             activeScrollAnimationFrame = null;
+            activeScrollAnimationLocked = false;
             syncManualScrollState();
         };
 
@@ -340,7 +351,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (targetSelector === projectSectionHref) {
                 event.preventDefault();
-                stopAnimatedScroll();
+                stopAnimatedScroll(true);
                 return;
             }
 
@@ -359,6 +370,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 link === floatingDownloadButton
                     ? getSectionStartScrollTarget(targetSection)
                     : getNavScrollTarget(targetSection),
+                { lockUntilComplete: link === floatingDownloadButton },
             );
         });
     });
@@ -483,7 +495,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (typeof reducedMotionMediaQuery.addEventListener === "function") {
         reducedMotionMediaQuery.addEventListener("change", () => {
-            stopAnimatedScroll();
+            stopAnimatedScroll(true);
             stopManualScroll();
         });
     }
