@@ -286,6 +286,13 @@ document.addEventListener("DOMContentLoaded", () => {
         return Math.min(getMaxScrollY(), Math.max(0, absoluteTop - centeredOffset));
     };
 
+    const getSectionStartScrollTarget = (section) => {
+        const rect = section.getBoundingClientRect();
+        const absoluteTop = window.scrollY + rect.top;
+
+        return Math.min(getMaxScrollY(), Math.max(0, absoluteTop));
+    };
+
     const animateWindowScrollTo = (targetY) => {
         const startY = window.scrollY;
         const distance = targetY - startY;
@@ -348,7 +355,11 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             event.preventDefault();
-            animateWindowScrollTo(getNavScrollTarget(targetSection));
+            animateWindowScrollTo(
+                link === floatingDownloadButton
+                    ? getSectionStartScrollTarget(targetSection)
+                    : getNavScrollTarget(targetSection),
+            );
         });
     });
 
