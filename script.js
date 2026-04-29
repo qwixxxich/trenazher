@@ -460,7 +460,6 @@ document.addEventListener("DOMContentLoaded", () => {
     syncFloatingDownloadButtonState();
     window.addEventListener("scroll", scheduleScrollStateSync, { passive: true });
     window.addEventListener("resize", () => {
-        stopAnimatedScroll();
         stopManualScroll();
         syncNavigationState();
         syncFloatingDownloadButtonState();
