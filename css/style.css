@@ -10,6 +10,7 @@ html {
 * {
     box-sizing: border-box;
     font-family: "Craftwork Grotesk", sans-serif;
+    -webkit-text-decoration: none;
     text-decoration: none;
 }
 
@@ -31,7 +32,7 @@ body::-webkit-scrollbar {
 
 body::-webkit-scrollbar-track {
     background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+            linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
     border-left: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -39,13 +40,13 @@ body::-webkit-scrollbar-thumb {
     border: 3px solid #1D1D21;
     border-radius: 999px;
     background:
-        linear-gradient(180deg, #EDFF40 0%, #B7FF32 100%);
+            linear-gradient(180deg, #EDFF40 0%, #B7FF32 100%);
     box-shadow: 0 8px 18px rgba(237, 255, 64, 0.22);
 }
 
 body::-webkit-scrollbar-thumb:hover {
     background:
-        linear-gradient(180deg, #F6FF89 0%, #CFFF52 100%);
+            linear-gradient(180deg, #F6FF89 0%, #CFFF52 100%);
 }
 
 [hidden] {
@@ -63,15 +64,15 @@ nav {
     padding: 25px;
     justify-content: space-between;
     width: 100%;
+}
 
-    img {
-        width: 6%;
-        height: auto;
-        flex-shrink: 0;
-        transform-origin: center;
-        animation: nav-logo-float 4.6s ease-in-out infinite;
-        will-change: transform, filter;
-    }
+nav img {
+    width: 6%;
+    height: auto;
+    flex-shrink: 0;
+    transform-origin: center;
+    animation: nav-logo-float 4.6s ease-in-out infinite;
+    will-change: transform, filter;
 }
 
 .floating-download-button {
@@ -451,8 +452,8 @@ h3 {
     border: 0;
     border-radius: 24px;
     background-image:
-        linear-gradient(180deg, rgba(8, 10, 14, 0.08) 0%, rgba(8, 10, 14, 0.74) 100%),
-        var(--video-poster-image);
+            linear-gradient(180deg, rgba(8, 10, 14, 0.08) 0%, rgba(8, 10, 14, 0.74) 100%),
+            var(--video-poster-image);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -479,6 +480,7 @@ h3 {
     height: 6vw;
     border-radius: 50%;
     background: rgba(33, 37, 54, 0.55);
+    -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
 }
@@ -557,12 +559,12 @@ h3 {
     display: flex;
     gap: 25px;
     width: 85%;
+}
 
-    img {
-        min-width: 0;
-        transform-origin: center;
-        transition: transform 0.24s ease, filter 0.24s ease;
-    }
+.section4-content img {
+    min-width: 0;
+    transform-origin: center;
+    transition: transform 0.24s ease, filter 0.24s ease;
 }
 
 .section5-content {
@@ -915,10 +917,10 @@ h3 {
         border-bottom-right-radius: 22px;
         box-shadow: none;
         transition: background-color 0.2s ease, -webkit-backdrop-filter 0.2s ease, backdrop-filter 0.2s ease, box-shadow 0.2s ease;
+    }
 
-        img {
-            width: 9vh;
-        }
+    nav img {
+        width: 9vh;
     }
 
     nav.is-scrolled {
@@ -926,8 +928,8 @@ h3 {
         -webkit-backdrop-filter: none;
         backdrop-filter: none;
         box-shadow:
-            0 14px 36px rgba(0, 0, 0, 0.24),
-            0 2px 0 rgba(255, 255, 255, 0.03) inset;
+                0 14px 36px rgba(0, 0, 0, 0.24),
+                0 2px 0 rgba(255, 255, 255, 0.03) inset;
     }
 
     .floating-download-button {
@@ -1027,11 +1029,11 @@ h3 {
         width: 100%;
         flex-wrap: wrap;
         justify-content: center;
+    }
 
-        img {
-            max-height: 11vw;
-            width: auto;
-        }
+    .section4-content img {
+        max-height: 11vw;
+        width: auto;
     }
 
     .section3-downloads-row {
