@@ -278,18 +278,35 @@ document.addEventListener("DOMContentLoaded", () => {
         queueManualScroll(getNormalizedWheelDelta(event) * manualScrollAccelerationFactor);
     };
 
+    const getViewportTopOffset = () => {
+        if (!nav) {
+            return 0;
+        }
+
+        const navPosition = window.getComputedStyle(nav).position;
+
+        if (navPosition !== "fixed" && navPosition !== "sticky") {
+            return 0;
+        }
+
+        const navRect = nav.getBoundingClientRect();
+        return navRect.top <= 0 && navRect.bottom > 0 ? navRect.bottom : 0;
+    };
+
     const getNavScrollTarget = (section) => {
         const sectionIndex = trackedSections.findIndex((item) => item.element === section);
         const isEdgeSection = sectionIndex === 0 || sectionIndex === trackedSections.length - 1;
         const rect = section.getBoundingClientRect();
+        const viewportTopOffset = getViewportTopOffset();
+        const visibleViewportHeight = window.innerHeight - viewportTopOffset;
         const absoluteTop = window.scrollY + rect.top;
-        const canCenterSection = !isEdgeSection && rect.height < window.innerHeight;
+        const canCenterSection = !isEdgeSection && rect.height < visibleViewportHeight;
 
         if (!canCenterSection) {
-            return Math.min(getMaxScrollY(), Math.max(0, absoluteTop));
+            return Math.min(getMaxScrollY(), Math.max(0, absoluteTop - viewportTopOffset));
         }
 
-        const centeredOffset = (window.innerHeight - rect.height) / 2;
+        const centeredOffset = viewportTopOffset + (visibleViewportHeight - rect.height) / 2;
         return Math.min(getMaxScrollY(), Math.max(0, absoluteTop - centeredOffset));
     };
 
